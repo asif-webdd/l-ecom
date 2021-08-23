@@ -26,7 +26,7 @@ class RegisteredUserController extends Controller
     /**
      * Handle an incoming registration request.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\RedirectResponse
      *
      * @throws \Illuminate\Validation\ValidationException
@@ -36,19 +36,24 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => ['required'/*, 'confirmed', Rules\Password::defaults()*/],
+            'status' => ['required'],
+            'image' => 'required'
         ]);
+        $user_img       = $request->file('image');
+        $userImagesName = date('Ymdhis') . uniqid() . '.' . $user_img->getClientOriginalExtension();
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'mobile' => $request->mobile,
             'password' => Hash::make($request->password),
+            'status' => $request->status,
+            'image' => $userImagesName,
         ]);
-
+        if ($user) $user_img->storeAs('users', $userImagesName);
         event(new Registered($user));
-
         Auth::login($user);
-
         return redirect(RouteServiceProvider::HOME);
     }
 }

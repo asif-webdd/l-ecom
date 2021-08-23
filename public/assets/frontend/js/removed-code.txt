@@ -1,0 +1,1 @@
+Wolmart.$body.hasClass("home")&&"true"!==Wolmart.getCookie("hideNewsletterPopup")&&setTimeout(function(){Wolmart.popup({items:{src:"assets/ajax/newsletter.html"},type:"ajax",tLoading:"",mainClass:"mfp-newsletter mfp-fadein-popup",callbacks:{beforeClose:function(){t("#hide-newsletter-popup")[0].checked&&Wolmart.setCookie("hideNewsletterPopup",!0,7)}}})},7500)

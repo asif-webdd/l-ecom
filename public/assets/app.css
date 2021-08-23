@@ -1,0 +1,14 @@
+.table-responsive table tr td a {
+    color: rgba(0, 0, 0, 0.72);
+}
+.table-responsive table tr td .btn {
+    padding: 7px 11px;
+}
+.btn-group a.btn-dark {
+    color: #fff;
+}
+.btn-group{
+    box-shadow: none;
+}
+
+
